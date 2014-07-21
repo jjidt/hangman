@@ -1,0 +1,51 @@
+.hangman {
+  position: fixed;
+  top: 100px;
+  left: 200px;
+  height: 200px;
+  width: 400px;
+  background-image: url("../css/pic/hangman.png");
+  background-repeat: no-repeat;
+}
+
+.pole {
+  position: fixed;
+  top: 50px;
+  left: 270px;
+}
+
+#guess {
+  position: fixed;
+  top: 500px;
+  left: 50px;
+}
+
+p {
+  position: fixed;
+  font-size: 60px;
+  top: 550px;
+  left: 400px;
+}
+
+.display {
+  position: fixed;
+  top: 496px;
+  left: 253px;
+  font-size: 40px;
+}
+
+.display *{
+  height: 60px;
+  width: 30px;
+  display: inline-block;
+  margin: 10px;
+  border-bottom: 3px solid black;
+
+}
+
+.hide-text {
+  position: relative;
+  top: 28px;
+  text-indent: 100%;
+  overflow: hidden;
+}

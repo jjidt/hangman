@@ -3,7 +3,7 @@ describe("Hangman", function() {
     it("initializes the hangman's body parts", function() {
       var testMan = Object.create(Hangman);
       testMan.initialize();
-      testMan.head.should.equal(false);
+      testMan.parts.should.equal(0);
     });
   });
   describe("create", function() {
@@ -15,13 +15,8 @@ describe("Hangman", function() {
   describe("addPart", function() {
     it("takes a number and adds the amount of body parts to the hangman", function() {
       var testMan = Hangman.create();
-      testMan.addPart(1);
-      testMan.head.should.equal(true);
-    });
-    it("takes a number greater than 1 and adds all the body parts up to that number", function() {
-      var testMan = Hangman.create();
-      testMan.addPart(3);
-      testMan.arms.should.equal(true);
+      testMan.addPart();
+      testMan.parts.should.equal(1);
     });
   });
 });
@@ -31,7 +26,7 @@ describe("Game", function() {
     it("initializes the Game with a Hangman object", function() {
       var testGame = Object.create(Game);
       testGame.initialize();
-      testGame.man.head.should.equal(false);
+      testGame.man.parts.should.equal(0);
     });
     it("initializes the game with a 20 word array", function() {
       var testGame = Object.create(Game);
@@ -49,7 +44,30 @@ describe("Game", function() {
     it("chooses a random word from the words array", function() {
       var testGame = Game.create();
       testGame.ranWord();
-      (typeof testGame.word).should.equal("string");
+      (typeof testGame.currentWord).should.equal("string");
+    });
+  });
+  describe("splitWord", function() {
+    it("splits the currentWord into an array", function() {
+      var testGame = Game.create();
+      testGame.splitWords.length.should.equal(testGame.currentWord.length);
+    });
+  });
+  describe("hasLost", function() {
+    it("should return true if body parts are equal to 5", function() {
+      var testGame = Game.create();
+      testGame.man.addPart();
+      testGame.man.addPart();
+      testGame.man.addPart();
+      testGame.man.addPart();
+      testGame.man.addPart();
+      testGame.hasLost().should.equal(true);
     });
   });
 });
+
+
+
+
+
+

@@ -1,52 +1,59 @@
 var Hangman = {
   initialize: function() {
-    this.head = false;
-    this.neck = false;
-    this.arms = false;
-    this.torso = false;
-    this.legs = false;
-    this.lose = false;
+    this.parts = 0;
   },
   create: function() {
     var newMan = Object.create(Hangman);
     newMan.initialize();
     return newMan;
   },
-  addPart: function(number) {
-    if(number === 1) {
-      this.head = true;
-    } else if(number === 2) {
-      this.head = true;
-      this.neck = true;
-    } else if(number === 3) {
-      this.head = true;
-      this.neck = true;
-      this.arms = true;
-    } else if(number === 4) {
-      this.head = true;
-      this.neck = true;
-      this.arms = true;
-      this.torso = true;
-    } else if(number === 5) {
-      this.head = true;
-      this.neck = true;
-      this.arms = true;
-      this.torso = true;
-      this.legs = true;
-      this.lose = true;
+  addPart: function() {
+    this.parts += 1;
     }
-  }
 };
 
 var Game = {
   initialize: function() {
     this.man = Hangman.create();
     this.words = ["basketball", "portland", "trapeze", "banana", "hamburger", "quiche", "target", "lawyer", "doctor", "hangman", "yellow", "bingo", "automobile", "pizza", "family", "vertigo", "island", "warrior", "lake", "skateboard"];
+    this.ranWord();
+    this.splitWords = this.splitWord();
   },
   create: function() {
     var newGame = Object.create(Game);
     newGame.initialize();
     return newGame;
+  },
+  ranWord: function() {
+    this.currentWord = this.words[Math.floor(Math.random()*this.words.length)];
+  },
+  splitWord: function() {
+    return this.currentWord.split("");
+  },
+  hasLost: function() {
+    return this.man.parts >= 5;
   }
 };
+
+$(document).ready(function(){
+  var hangGame = Game.create();
+  for(var i = 0; i < hangGame.splitWords.length; i++) {
+    $("div.display").append("<div class='hide-text'>" + hangGame.splitWords[i] + "</div>" );
+  }
+  $("form#guess").submit(function(event) {
+    event.preventDefault();
+    var inputtedLetter = $("input#letter").val();
+    var letterFound = false;
+    for(var j = 0; j<hangGame.splitWords.length; j++) {
+      if(inputtedLetter === hangGame.splitWords[j]) {
+        $("div.display div").eq(j).removeClass("hide-text");
+        letterFound = inputtedLetter;
+      }
+    }
+    if (letterFound === false) {
+
+    }
+  $("input#letter").val("");
+  })
+});
 
